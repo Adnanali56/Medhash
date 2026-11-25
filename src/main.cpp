@@ -1,31 +1,41 @@
+// main.cpp
+// MEDHASH: Medical Record Hashing System
+// All patient data used by this program is synthetic.
+//
+// ======================= REQUIREMENTS MAP =======================
+// Search the code for "[REQ §" to find each tagged location.
+//
+// §5.1 Linear Probing ............. LinearProbingHash.h  (probeIndex)
+// §5.2 Quadratic Probing .......... QuadraticProbingHash.h (probeIndex),
+//                                   failure detection in OpenAddressHash.h (insert)
+// §5.3 Double Hashing ............. DoubleHash.h (secondaryHash, probeIndex)
+// §5.1-5.3 shared open addressing . OpenAddressHash.h (hash, tryInsert, findIndex,
+//                                   DELETED handling in remove)
+// §5.4 Separate Chaining .......... SeparateChainingHash.h, ChainNode.h
+// §5.5 Traditional Bucket Hashing . BucketHash.h (homeSlot, slotFor)
+// §5.6 Alternate Bucket Hashing ... AlternateBucketHash.h (homeSlot)
+// §6   Overflow Area .............. BucketHash.h (insert, search, remove)
+// §7   Load Factor ................ HashTableBase.h (getLoadFactor), every insert()
+// §7   Rehashing .................. rehash() in OpenAddressHash.h,
+//                                   SeparateChainingHash.h, BucketHash.h
+// §11  Hash Statistics ............ HashStatistics.h/.cpp, getStatistics()
+// §12  Compare All / Performance .. MedicalHashApplication.cpp (runComparison)
+// =================================================================
+
+#include "MedicalHashApplication.h"
+#include "InputEnded.h"
 #include <iostream>
-using namespace std;
 
 int main()
 {
-    int choice = -1;
-    while (choice != 0)
+    MedicalHashApplication app;
+    try
     {
-        cout << "==================================================\n";
-        cout << "   MEDICAL RECORD HASHING SYSTEM\n";
-        cout << "==================================================\n\n";
-        cout << "Select Hashing / Collision Strategy\n\n";
-        cout << "1. Linear Probing\n";
-        cout << "2. Quadratic Probing\n";
-        cout << "3. Double Hashing\n";
-        cout << "4. Separate Chaining\n";
-        cout << "5. Bucket Hashing\n";
-        cout << "6. Alternate Bucket Hashing + Overflow\n";
-        cout << "7. Compare All Techniques\n";
-        cout << "0. Exit\n\n";
-        cout << "Selection: ";
-        cin >> choice;
-
-        if (choice >= 1 && choice <= 7)
-            cout << "\n(Not implemented yet)\n\n";
-        else if (choice != 0)
-            cout << "\nInvalid choice.\n\n";
+        app.run();
     }
-    cout << "Goodbye.\n";
+    catch (const InputEnded&)
+    {
+        std::cout << "\nInput ended. Exiting.\n";
+    }
     return 0;
 }
